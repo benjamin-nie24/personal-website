@@ -1,2 +1,2 @@
-import { redirect } from "next/navigation";
-export default function WorkPage() { redirect("/#work"); }
+export const metadata = {title:"Projects"};
+export default function Projects(){return <main id="main" className="portfolio-page"><p className="eyebrow">02 / SELECTED PROJECTS</p><h1>Things I’ve <span>built.</span></h1><article className="project"><div className="project-heading"><h2>Scute</h2><span>2026</span></div><p className="lead project-lead">A better way across campus.</p><p className="body-copy">A full-stack navigation app with a custom A* pathfinding engine, interactive walking routes, and secure user accounts. Built with React, Python, Node.js, and PostgreSQL.</p><div className="page-links"><a href="https://scute.onrender.com/" target="_blank" rel="noopener noreferrer">Visit Scute ↗</a><a href="https://github.com/benjamin-nie24" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></article></main>;}
