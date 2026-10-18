@@ -1,2 +1,25 @@
-export const metadata = {title:"Contact"};
-export default function Contact(){return <main id="main" className="portfolio-page"><p className="eyebrow">04 / CONTACT</p><h1>Let’s <span>talk.</span></h1><p className="lead">An idea, a question, or a simple hello.</p><a className="email-link" href="mailto:benjamin.nie24@gmail.com">benjamin.nie24@gmail.com <span>↗</span></a><div className="contact-options"><a href="https://github.com/benjamin-nie24" target="_blank" rel="noopener noreferrer"><span>GitHub</span><span>benjamin-nie24 ↗</span></a><a href="tel:+12403907827"><span>Phone</span><span>240-390-7827 ↗</span></a><a href="/resume.pdf" target="_blank" rel="noopener noreferrer"><span>Résumé</span><span>Read PDF ↗</span></a></div></main>;}
+export const metadata = { title: "Contact" };
+
+export default function Contact() {
+  return (
+    <main id="main" className="portfolio-page contact-page">
+      <p className="eyebrow">04 / CONTACT</p>
+      <h1>Let’s <span>talk.</span></h1>
+      <p className="lead">An idea, a question, or a simple hello.</p>
+      <a className="email-link" href="mailto:benjamin.nie24@gmail.com">
+        benjamin.nie24@gmail.com <span aria-hidden="true">↗</span>
+      </a>
+      <div className="contact-options">
+        <a href="https://github.com/benjamin-nie24" target="_blank" rel="noopener noreferrer">
+          <span>GitHub</span><span>benjamin-nie24 ↗</span>
+        </a>
+        <a href="tel:+12403907827">
+          <span>Phone</span><span>240-390-7827 ↗</span>
+        </a>
+        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+          <span>Résumé</span><span>Read PDF ↗</span>
+        </a>
+      </div>
+    </main>
+  );
+}

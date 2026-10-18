@@ -1,77 +1,621 @@
-:root{--background:#050807;--foreground:#e8eae2;--sage:#b5c6a4;--muted:#9aa59a}
-body{background:var(--background)}
-.planet-scene{position:fixed;inset:0;z-index:0;overflow:hidden;background:radial-gradient(ellipse at 95% 50%,#152020,#050807 70%)}
-.planet-scene canvas{display:block;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .4s}
-.planet-scene canvas.is-ready{opacity:1}
-.planet-fallback{position:absolute;z-index:-1;left:58%;top:50%;width:90vw;height:90vw;transform:translateY(-50%);border-radius:50%;background:radial-gradient(circle at 20% 25%,#56735d,#142b38 50%,#050807 80%);box-shadow:0 0 30px #5a8f8a33}
-.planet-scene[data-planet=mars] .planet-fallback{background:radial-gradient(circle at 20% 25%,#966041,#583826 50%,#050807 80%)}
-.planet-scene[data-planet=jupiter] .planet-fallback,.planet-scene[data-planet=saturn] .planet-fallback{background:radial-gradient(circle at 20% 25%,#a99c7e,#554936 50%,#050807 80%)}
-.planet-scene[data-planet=uranus] .planet-fallback{background:radial-gradient(circle at 20% 25%,#91c5c8,#3d7278 50%,#050807 80%)}
-.orbital-connector{position:absolute;left:57vw;top:26vh;width:23vw;height:140px;pointer-events:none;opacity:.55;animation:planet-copy-in 1s .4s both}
-.orbital-connector path{stroke:#b5c6a4;stroke-width:.6}.orbital-connector circle{fill:#b5c6a4}
-.planet-caption{position:absolute;bottom:30px;right:35px;display:flex;align-items:center;gap:10px;font:9px "Courier New",monospace;letter-spacing:.15em;text-transform:uppercase;color:#c7d2c399;pointer-events:none}
-.orbit-dot{width:4px;height:4px;border-radius:50%;background:var(--sage);box-shadow:0 0 12px #b5c6a455}
-.home-stage{position:relative;min-height:100svh;pointer-events:none}
-.side-nav{left:3.5vw;top:45px;font-size:12px}
-.identity{letter-spacing:.04em;margin-bottom:35px}
-.side-nav nav{gap:19px}
-.side-nav nav a{font-size:11px;color:#919c90;transition:color .2s,transform .2s}
-.side-nav nav a:hover{transform:translateX(3px)}
-.side-nav nav a[aria-current=page]:before{left:-15px;top:3px;width:5px;height:5px;border-radius:50%;box-shadow:0 0 10px #b5c6a433}
-.portfolio-page{z-index:1;margin:0 0 0 21vw;padding:15vh 0 100px;width:35vw;max-width:620px;min-height:100svh;animation:planet-copy-in .8s .18s both cubic-bezier(.2,.7,.2,1);pointer-events:auto}
-.portfolio-page a{pointer-events:auto}
-.eyebrow{font-size:9px;color:#afc0a6;letter-spacing:.17em;margin-bottom:28px}
-.portfolio-page h1{font-size:clamp(37px,4.3vw,68px);font-weight:400;letter-spacing:-.055em;line-height:1.09;margin-bottom:30px}
-.portfolio-page h1 span{color:inherit}
-.lead{color:#b7c0b3;font-size:clamp(18px,1.55vw,25px);line-height:1.55;margin-bottom:32px}
-.body-copy{color:#a4ada2;font-size:14px;line-height:1.9;max-width:520px}
-.body-copy p{margin-bottom:20px}
-.page-links{font-size:11px;gap:26px;margin-top:32px}
-.page-links a{padding-bottom:7px;border-bottom-color:#a5b89766;transition:color .2s,border-color .2s}
-.page-links a:hover{border-color:var(--sage)}
-.footnote{font-size:8px;line-height:1.8;letter-spacing:.12em;color:#82917e;margin-top:45px;position:relative}
-.footnote:before{content:"";position:absolute;left:-18px;top:4px;width:6px;height:6px;border:1px solid var(--sage);border-radius:50%}
-.project{margin-top:40px;padding-top:24px;border-color:#b5c6a426}
-.project-heading{align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:15px}
-.project-heading h2{font-size:37px;margin:0}
-.project-heading>span{font-size:8px;color:#8b9d86;letter-spacing:.08em}
-.project-lead{font-size:20px;margin-bottom:22px}
-.technology-list{display:flex;gap:8px;flex-wrap:wrap;margin:25px 0 34px}
-.technology-list span{font:9px "Courier New",monospace;color:#abbda1;border:1px solid #a4b39428;border-radius:2px;padding:7px 9px}
-.project-details section{padding:20px 0;border-top:1px solid #a5b89722}
-.project-details h3{font-size:14px;font-weight:400;margin:0 0 10px;color:#d0d7ca}
-.project-details h3 span{font:9px "Courier New",monospace;color:#82967a;margin-right:12px}
-.project-details p{font-size:13px;line-height:1.85;color:#a4ada2;margin:0}
-.section-intro{color:#a4ada2;font-size:14px;line-height:1.8;margin:0 0 35px}
-.experience-list{margin-top:0;border-left:1px solid #afc0a635;padding-left:25px}
-.experience-list article{display:block;position:relative;border:0;border-bottom:1px solid #a5b89722;padding:26px 0 30px}
-.experience-list article:first-child{padding-top:0}
-.experience-list article:last-child{border-bottom:0;padding-bottom:0}
-.timeline-node{position:absolute;left:-30px;top:32px;width:8px;height:8px;border:1px solid #adc29d;border-radius:50%;background:#121b12;box-shadow:0 0 0 4px #050807}
-.experience-list article:first-child .timeline-node{top:4px}
-.entry-number{font:9px "Courier New",monospace;letter-spacing:.05em;color:#8fa282;margin:0 0 16px;line-height:1.7}
-.experience-list h2{font-size:21px;font-weight:400;margin:0 0 10px;line-height:1.3}
-.entry-role{font-size:12px;line-height:1.7;color:#b9c5b0;margin:0 0 18px}
-.role-description{font-size:13px;color:#a4ada2;line-height:1.85;margin:0 0 13px}
-.role-details{font-size:12px;line-height:1.85;color:#8f9c8c;padding-left:15px;margin:0}
-.role-details li{margin:8px 0;padding-left:3px}
-.role-details li::marker{color:#7a9170}
-.entry-tools{font:9px "Courier New",monospace;line-height:1.9;color:#9bad91;margin:20px 0 0}
-.email-link{font-size:clamp(15px,1.75vw,27px);letter-spacing:-.035em;margin-top:45px;padding-bottom:20px}
-.contact-options{max-width:100%}
-.contact-options a{font-size:11px;color:#c8d0c2;padding:20px 0}
-@keyframes planet-copy-in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
-@media(min-width:1500px){.portfolio-page{margin-left:22vw;width:34vw}}
-@media(max-width:1000px) and (min-width:701px){.portfolio-page{margin-left:22vw;width:39vw}.portfolio-page h1{font-size:40px}.body-copy{font-size:13px}.side-nav{left:3vw}}
-@media(max-width:700px){
- .side-nav{position:absolute;left:25px;top:27px}.identity{margin-bottom:24px}.side-nav nav{gap:14px}
- .planet-caption{bottom:20px;right:20px;font-size:8px}
- .orbital-connector{display:none}
- .portfolio-page{margin:0;width:100%;max-width:none;padding:355px 26px 75px;min-height:100svh;background:linear-gradient(transparent 230px,#050807b8 370px,#050807ed 550px);animation-duration:.5s}
- .portfolio-page h1{font-size:43px}.eyebrow{font-size:9px}.lead{font-size:20px}.body-copy{font-size:14px}.project{margin-top:32px}.project-heading h2{font-size:34px}.email-link{font-size:clamp(16px,4.6vw,22px)}
- .experience-list h2{font-size:20px}.role-details,.role-description{font-size:13px}.project-details p{font-size:14px}
- .home-stage{min-height:100svh}
+/* The scene is a fixed backdrop, independent of document width and scrolling. */
+.planet-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 95% 50%, #152020, #050807 70%);
 }
-@media(prefers-reduced-motion:reduce){.portfolio-page{animation:none}.side-nav nav a{transition:none}}
 
+.planet-scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity .4s;
+}
 
+.planet-scene canvas.is-ready {
+  opacity: 1;
+}
+
+.planet-fallback {
+  position: absolute;
+  z-index: -1;
+  left: 58%;
+  top: 50%;
+  width: 90vw;
+  height: 90vw;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 20% 25%, #56735d, #142b38 50%, #050807 80%);
+}
+
+.planet-scene[data-planet="mars"] .planet-fallback {
+  background: radial-gradient(circle at 20% 25%, #966041, #583826 50%, #050807 80%);
+}
+
+.planet-scene[data-planet="jupiter"] .planet-fallback,
+.planet-scene[data-planet="saturn"] .planet-fallback {
+  background: radial-gradient(circle at 20% 25%, #a99c7e, #554936 50%, #050807 80%);
+}
+
+.planet-scene[data-planet="uranus"] .planet-fallback {
+  background: radial-gradient(circle at 20% 25%, #91c5c8, #3d7278 50%, #050807 80%);
+}
+
+.planet-caption {
+  position: absolute;
+  bottom: 26px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 9px var(--font-data);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: #c7d2c399;
+}
+
+.orbit-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--sage);
+  box-shadow: 0 0 12px #b5c6a455;
+}
+
+.home-stage {
+  position: relative;
+  min-height: 100svh;
+  pointer-events: none;
+}
+
+/* Persistent navigation remains outside the page's reading area. */
+.side-nav {
+  position: fixed;
+  z-index: 10;
+  left: 3.5vw;
+  top: 45px;
+}
+
+.identity {
+  display: inline-block;
+  margin-bottom: 35px;
+  font: 600 15px var(--font-flight);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.identity small {
+  display: block;
+  margin-top: 11px;
+  font: 8px var(--font-data);
+  letter-spacing: .16em;
+  color: #80927f;
+}
+
+.side-nav nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 21px;
+}
+
+.side-nav nav a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: 500 12px var(--font-flight);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #919c90;
+  transition: color .2s, transform .2s;
+}
+
+.side-nav nav a small {
+  font: 8px var(--font-data);
+  letter-spacing: .11em;
+  color: #6e846e;
+}
+
+.side-nav nav a:hover {
+  transform: translateX(3px);
+}
+
+.side-nav nav a:hover, .side-nav nav a[aria-current="page"] {
+  color: var(--foreground);
+}
+
+.side-nav nav a:hover small, .side-nav nav a[aria-current="page"] small {
+  color: var(--sage);
+}
+
+.side-nav nav a[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+/* Content uses the available viewport, including the area over the planet. */
+.portfolio-page {
+  position: relative;
+  z-index: 1;
+  margin-left: clamp(230px, 21vw, 340px);
+  width: auto;
+  max-width: 1240px;
+  min-height: 100svh;
+  padding: clamp(95px, 14vh, 155px) clamp(32px, 5vw, 90px) 100px 0;
+  animation: page-arrive .18s both;
+  transition: opacity .16s, transform .18s;
+}
+
+.eyebrow {
+  margin: 0 0 28px;
+  font: 10px var(--font-data);
+  letter-spacing: .18em;
+  color: var(--sage);
+}
+
+.portfolio-page h1 {
+  margin: 0 0 32px;
+  font: 500 clamp(36px, 4.3vw, 68px)/1.18 var(--font-flight);
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+.portfolio-page h1 span {
+  color: var(--sage);
+}
+
+.lead {
+  margin: 0 0 32px;
+  font: clamp(20px, 2.2vw, 32px)/1.55 var(--font-flight);
+  letter-spacing: .025em;
+  color: #c6cebf;
+}
+
+.body-copy {
+  max-width: 800px;
+  font-size: 15px;
+  line-height: 1.95;
+  color: var(--muted);
+}
+
+.body-copy p {
+  margin: 0 0 22px;
+}
+
+.about-page .body-copy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.about-page .lead {
+  max-width: 780px;
+  margin-bottom: 45px;
+}
+
+.page-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 32px;
+  font: 11px var(--font-data);
+}
+
+.page-links a {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #a5b89766;
+  color: #d6dfc9;
+}
+
+.page-links a:hover {
+  color: var(--sage);
+  border-color: var(--sage);
+}
+
+.footnote {
+  margin-top: 48px;
+  font: 9px/1.8 var(--font-data);
+  letter-spacing: .12em;
+  color: #91a18a;
+}
+
+/* Project details read across the page rather than down a narrow column. */
+.project {
+  margin-top: 45px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.project-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.project-heading h2 {
+  margin: 0;
+  font: 500 38px var(--font-flight);
+  letter-spacing: .035em;
+}
+
+.project-heading > span {
+  font: 10px var(--font-data);
+  color: #9cad94;
+}
+
+.project-lead {
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.technology-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 25px 0 38px;
+}
+
+.technology-list span {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font: 10px var(--font-data);
+  color: #b6c5ac;
+}
+
+.project-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.project-details section {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.project-details h3 {
+  margin: 0 0 16px;
+  font: 500 16px/1.5 var(--font-flight);
+  letter-spacing: .025em;
+}
+
+.project-details h3 span {
+  display: block;
+  margin-bottom: 10px;
+  font: 10px var(--font-data);
+  color: #90a381;
+}
+
+.project-details p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+
+/* Each role separates its context from the work and outcomes. */
+.section-intro {
+  margin: 0 0 44px;
+  font: 20px/1.8 var(--font-flight);
+  color: var(--muted);
+}
+
+.experience-list article {
+  display: grid;
+  grid-template-columns: minmax(200px, .8fr) 1.2fr;
+  gap: 36px;
+  padding: 30px 0;
+  border-top: 1px solid var(--line);
+}
+
+.entry-number {
+  margin: 0 0 18px;
+  font: 10px/1.8 var(--font-data);
+  color: #9cad94;
+}
+
+.experience-list h2 {
+  margin: 0 0 12px;
+  font: 500 24px/1.35 var(--font-flight);
+  letter-spacing: .025em;
+}
+
+.entry-role {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #b9c5b0;
+}
+
+.role-description {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #bac3b6;
+}
+
+.role-details {
+  padding-left: 17px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+.role-details li {
+  margin: 9px 0;
+  padding-left: 3px;
+}
+
+.role-details li::marker {
+  color: #90a381;
+}
+
+.entry-tools {
+  margin: 22px 0 0;
+  font: 10px/1.9 var(--font-data);
+  color: #aabd9f;
+}
+
+/* Contact has a generous reading width without stretching its links indefinitely. */
+.contact-page {
+  max-width: 1100px;
+}
+
+.email-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin: 55px 0 12px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #aabd8860;
+  font: clamp(20px, 2.5vw, 38px) var(--font-flight);
+}
+
+.email-link:hover, .contact-options a:hover {
+  color: var(--sage);
+}
+
+.contact-options a {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.contact-options a > span:last-child {
+  color: #a7b69c;
+}
+
+/* The flight changes only the backdrop;
+the persistent navigation stays usable. */
+.flight-status {
+  position: absolute;
+  left: 21vw;
+  bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 240px;
+  color: #c8d8c2;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .12s, transform .16s;
+}
+
+.flight-status small {
+  font: 9px var(--font-data);
+  letter-spacing: .22em;
+  color: #7c997f;
+}
+
+.flight-status > span:not(.flight-track) {
+  font: 18px var(--font-flight);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.flight-track {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  background: var(--line);
+  margin-top: 4px;
+}
+
+.flight-track::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sage);
+  transform: scaleX(var(--flight-progress, 0));
+  transform-origin: left;
+  box-shadow: 0 0 9px #a2bf9570;
+}
+
+.journey-ship {
+  position: absolute;
+  left: 52%;
+  bottom: 6vh;
+  width: 38px;
+  height: 76px;
+  opacity: 0;
+  transform: translate(-50%, 70px);
+  transition: opacity .12s, transform .2s cubic-bezier(.2, .7, .2, 1);
+}
+
+.ship-exhaust {
+  fill: #b5dfb0;
+  filter: drop-shadow(0 0 5px #9bc79d);
+  transform-origin: 40px 108px;
+}
+
+.planet-scene[data-journey="flight"] .ship-exhaust {
+  animation: exhaust-burn .17s infinite alternate;
+}
+
+.planet-scene[data-journey="flight"] .flight-status {
+  opacity: 1;
+  transform: none;
+}
+
+.planet-scene[data-journey="flight"] .journey-ship {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.planet-scene[data-journey="flight"] .planet-caption {
+  opacity: 0;
+}
+
+html[data-voyage="flight"] .portfolio-page {
+  animation: none;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+@keyframes exhaust-burn {
+  from {
+    opacity: .55;
+    transform: scaleY(.7);
+  }
+  to {
+    opacity: .85;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes page-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .portfolio-page {
+    margin-left: 220px;
+    padding-right: 30px;
+  }
+  .side-nav {
+    left: 30px;
+  }
+  .project-details {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .project-details h3 span {
+    display: inline;
+    margin-right: 12px;
+  }
+  .experience-list article {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .side-nav {
+    position: absolute;
+    left: 25px;
+    top: 27px;
+  }
+  .identity {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .identity small {
+    font-size: 7px;
+    margin-top: 8px;
+  }
+  .side-nav nav {
+    gap: 15px;
+  }
+  .side-nav nav a {
+    font-size: 11px;
+    gap: 4px;
+  }
+  .side-nav nav a small {
+    font-size: 7px;
+  }
+  .portfolio-page {
+    margin: 0;
+    padding: 355px 26px 75px;
+    width: 100%;
+    max-width: none;
+  }
+  .portfolio-page h1 {
+    font-size: 36px;
+    letter-spacing: .025em;
+  }
+  .lead {
+    font-size: 21px;
+  }
+  .about-page .body-copy {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .about-page .lead {
+    margin-bottom: 28px;
+  }
+  .project-heading {
+    flex-wrap: wrap;
+  }
+  .project-heading h2 {
+    font-size: 34px;
+  }
+  .email-link {
+    font-size: clamp(16px, 4.6vw, 25px);
+    margin-top: 35px;
+  }
+  .contact-options a {
+    font-size: 12px;
+  }
+  .planet-caption {
+    bottom: 20px;
+    right: 20px;
+    font-size: 8px;
+  }
+  .flight-status {
+    left: 26px;
+    bottom: 45px;
+    width: 180px;
+  }
+  .flight-status > span:not(.flight-track) {
+    font-size: 15px;
+  }
+  .journey-ship {
+    left: 68%;
+    bottom: 15%;
+    width: 32px;
+    height: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flight-status, .journey-ship {
+    display: none;
+  }
+}
