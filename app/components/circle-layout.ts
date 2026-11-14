@@ -24,11 +24,12 @@ export function createCircleField(width: number, height: number): FieldCircle[] 
   const columns = Math.ceil(width / cellSize);
   const rows = Math.ceil(height / cellSize);
   const buckets: FieldCircle[][] = Array.from({ length: rows * columns }, () => []);
-  const radiusX = width * 0.45;
-  const radiusY = height * 0.435;
-  const area = Math.PI * radiusX * radiusY;
-  const baseCount = Math.min(maxCount, Math.round(area / 1500));
-  const scale = Math.min(1, Math.sqrt(Math.min(radiusX, radiusY) / 300));
+  const horizontalInset = 0.05;
+  const span = 1 - 2 * horizontalInset;
+  const halfBand = 0.29;
+  const area = width * height * span * 2 * halfBand;
+  const baseCount = Math.min(maxCount, Math.round(area / 1300));
+  const scale = Math.min(1, Math.sqrt(Math.min(width * span, height * 2 * halfBand) / 600));
   const maxRadius = 62 * scale;
   const sizes = [
     { fraction: 0.013, min: 39, max: 62 },
@@ -62,15 +63,19 @@ export function createCircleField(width: number, height: number): FieldCircle[] 
       const baseRadius = (min + random() * (max - min)) * scale;
 
       for (let attempt = 0; attempt < 42; attempt++) {
-        const angle = random() * 2 * Math.PI;
-        const distance = Math.sqrt(random());
-        const weight = smoothstep((1 - distance) / 0.22);
+        // Follow a diagonal with a slight bend and feather both ends of the band.
+        const progress = random();
+        const across = random() * 2 - 1;
+        const centerY = 0.68 - 0.36 * progress + 0.035 * Math.sin(progress * 2 * Math.PI);
+        const edgeWeight = smoothstep((1 - Math.abs(across)) / 0.35);
+        const endWeight = smoothstep(Math.min(progress, 1 - progress) / 0.15);
+        const weight = edgeWeight * endWeight;
         const radius = baseRadius * (0.62 + 0.38 * weight);
         const density = 0.42 + 0.58 * weight;
-        // Reserve space for the whole circle inside the oval.
-        if (distance + radius / Math.min(radiusX, radiusY) > 1 || random() > density) continue;
-        const x = width / 2 + Math.cos(angle) * distance * radiusX;
-        const y = height / 2 + Math.sin(angle) * distance * radiusY;
+        if (random() > density) continue;
+        const x = width * (horizontalInset + span * progress);
+        const y = height * (centerY + halfBand * across);
+        if (Math.min(x, width - x, y, height - y) < radius) continue;
         if (!fits(x, y, radius)) continue;
 
         const circle = {
