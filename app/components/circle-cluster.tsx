@@ -6,6 +6,7 @@ import { createCircleField, type FieldCircle } from "./circle-layout";
 
 const reach = 47;
 const maxNudge = 69.825;
+const minTapDuration = 150;
 
 export function CircleCluster() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -22,6 +23,8 @@ export function CircleCluster() {
     let groups: { fill: string; circles: FieldCircle[] }[] = [];
     let circles: FieldCircle[] = [];
     let pointer: { x: number; y: number } | undefined;
+    let activeTouch: { id: number; startTime: number } | undefined;
+    let tapTimer: number | undefined;
     let frame = 0;
     let previousTime = 0;
     let width = 0;
@@ -128,10 +131,10 @@ export function CircleCluster() {
       requestMotion();
     }
 
-    function movePointer(event: PointerEvent) {
-      if (event.pointerType === "touch" || reducedMotion.matches) return;
+    function updatePointer(event: PointerEvent) {
       const bounds = canvas.getBoundingClientRect();
-      if (event.clientY < bounds.top || event.clientY >= bounds.bottom) {
+      if (event.clientX < bounds.left || event.clientX >= bounds.right ||
+          event.clientY < bounds.top || event.clientY >= bounds.bottom) {
         clearPointer();
         return;
       }
@@ -139,10 +142,55 @@ export function CircleCluster() {
       requestMotion();
     }
 
+    function clearTapTimer() {
+      window.clearTimeout(tapTimer);
+      tapTimer = undefined;
+    }
+
+    function movePointer(event: PointerEvent) {
+      if (reducedMotion.matches) return;
+      if (event.pointerType === "touch" ? activeTouch?.id !== event.pointerId : activeTouch) return;
+      clearTapTimer();
+      updatePointer(event);
+    }
+
+    function startTouch(event: PointerEvent) {
+      if (event.pointerType !== "touch" || !event.isPrimary || activeTouch || reducedMotion.matches) return;
+      clearTapTimer();
+      activeTouch = { id: event.pointerId, startTime: event.timeStamp };
+      canvas.setPointerCapture(event.pointerId);
+      updatePointer(event);
+    }
+
+    function finishPointer(event: PointerEvent) {
+      if (event.pointerType !== "touch" || activeTouch?.id !== event.pointerId) return;
+      const remaining = minTapDuration - (event.timeStamp - activeTouch.startTime);
+      activeTouch = undefined;
+      if (event.type === "pointerup" && pointer && remaining > 0) {
+        // Brief taps still need time to produce visible motion.
+        tapTimer = window.setTimeout(() => {
+          tapTimer = undefined;
+          clearPointer();
+        }, remaining);
+      } else {
+        clearPointer();
+      }
+    }
+
+    function leaveScreen(event: PointerEvent) {
+      if (event.pointerType !== "touch" && !activeTouch) clearPointer();
+    }
+
+    function resetInput() {
+      clearTapTimer();
+      activeTouch = undefined;
+      clearPointer();
+    }
+
     function resetMotion() {
       cancelAnimationFrame(frame);
       frame = 0;
-      pointer = undefined;
+      resetInput();
       for (const circle of circles) {
         circle.offsetX = 0;
         circle.offsetY = 0;
@@ -156,19 +204,23 @@ export function CircleCluster() {
 
     const listener = new AbortController();
     const options = { signal: listener.signal };
+    canvas.addEventListener("pointerdown", startTouch, options);
+    canvas.addEventListener("lostpointercapture", finishPointer, options);
     window.addEventListener("pointermove", movePointer, options);
-    document.documentElement.addEventListener("pointerleave", clearPointer, options);
-    window.addEventListener("pointercancel", clearPointer, options);
-    window.addEventListener("blur", clearPointer, options);
+    window.addEventListener("pointerup", finishPointer, options);
+    window.addEventListener("pointercancel", finishPointer, options);
+    document.documentElement.addEventListener("pointerleave", leaveScreen, options);
+    window.addEventListener("blur", resetInput, options);
     window.addEventListener("resize", resize, options);
     reducedMotion.addEventListener("change", resetMotion, options);
 
     return () => {
       listener.abort();
       observer.disconnect();
+      clearTapTimer();
       cancelAnimationFrame(frame);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 block h-full w-full" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full touch-pinch-zoom motion-reduce:touch-auto" aria-hidden="true" />;
 }

@@ -27,7 +27,7 @@ export function createCircleField(width: number, height: number): FieldCircle[] 
   const radiusX = width * 0.45;
   const radiusY = height * 0.435;
   const area = Math.PI * radiusX * radiusY;
-  const count = Math.min(maxCount, Math.round(area / 1500));
+  const baseCount = Math.min(maxCount, Math.round(area / 1500));
   const scale = Math.min(1, Math.sqrt(Math.min(radiusX, radiusY) / 300));
   const maxRadius = 62 * scale;
   const sizes = [
@@ -35,6 +35,8 @@ export function createCircleField(width: number, height: number): FieldCircle[] 
     { fraction: 0.055, min: 17, max: 36 },
     { fraction: 0.23, min: 7, max: 16 },
     { fraction: 0.702, min: 3, max: 7 },
+    // Fill open gaps after the larger circles and the original small circles are placed.
+    { fraction: 0.33, min: 3, max: 6 },
   ];
 
   function fits(x: number, y: number, radius: number) {
@@ -56,7 +58,7 @@ export function createCircleField(width: number, height: number): FieldCircle[] 
   }
 
   for (const { fraction, min, max } of sizes) {
-    for (let i = 0; i < Math.round(count * fraction); i++) {
+    for (let i = 0; i < Math.round(baseCount * fraction); i++) {
       const baseRadius = (min + random() * (max - min)) * scale;
 
       for (let attempt = 0; attempt < 42; attempt++) {
