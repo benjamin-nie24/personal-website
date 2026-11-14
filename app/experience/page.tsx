@@ -13,10 +13,7 @@ const experience = [
     location: "College Park, MD",
     dates: "Sep 2026 – Present",
     color: "bg-blue",
-    description: "Collaborating with Ajamais AI through UMD’s App Dev Club on Structora, a platform that turns natural-language project briefs into 3D models, construction drawings, and handover documentation.",
-    highlights: [
-      "Developing an Assessments dashboard that brings project decisions and risk tracking into one place.",
-    ],
+    description: "Developing the Assessments dashboard for Structora through UMD’s App Dev Club. The dashboard gives building design teams one place to review decisions and track risks.",
   },
   {
     title: "Computational Software Research Intern",
@@ -24,11 +21,7 @@ const experience = [
     location: "Frederick, MD",
     dates: "Aug 2025 – Present",
     color: "bg-lavender",
-    description: "Built a Python pipeline with Pandas and SciPy to analyze how candidate ligands bind to BACE1.",
-    highlights: [
-      "Evaluated 20,384 ligand–receptor atom distances and identified 12 candidate pairings.",
-      "Used RDKit to explore changes at three candidate positions.",
-    ],
+    description: "Built a Python workflow for BACE1 binding research. Screened 20,384 distances between atoms to identify 12 candidate pairings and used RDKit to explore changes at three positions.",
   },
   {
     title: "Programming Projects Lead",
@@ -36,11 +29,7 @@ const experience = [
     location: "Ijamsville, MD",
     dates: "Sep 2023 – Jun 2026",
     color: "bg-brick",
-    description: "Maintained the chapter website for more than 200 members and developed software for FBLA competitions.",
-    highlights: [
-      "Placed seventh nationally with CookingMania, a multiplayer cooking game built in Unity.",
-      "Placed third statewide with CodeVerse, an Android app for learning programming built with Flutter and Firebase.",
-    ],
+    description: "Maintained and updated the chapter website for more than 200 members using HTML and CSS.",
   },
   {
     title: "S.E.E. Program Teaching Assistant",
@@ -48,11 +37,7 @@ const experience = [
     location: "Frederick, MD",
     dates: "Jun 2025 – Jul 2025",
     color: "bg-sage",
-    description: "Helped more than 20 students a day with lab work and coursework.",
-    highlights: [
-      "Prepared equipment and maintained instrument calibration for two to three lab sessions each week.",
-      "Evaluated 60 pages of final examinations.",
-    ],
+    description: "Supported more than 20 students per day with lab work and coursework. Helped run two to three lab sessions each week by preparing equipment, calibrating instruments, and enforcing safety procedures.",
   },
 ];
 
@@ -60,7 +45,7 @@ export default function ExperiencePage() {
   return (
     <SectionPage page="experience">
       <ol className="mt-10 divide-y divide-black/10 border-y border-black/15 sm:mt-14">
-        {experience.map(({ title, organization, location, dates, color, description, highlights }) => (
+        {experience.map(({ title, organization, location, dates, color, description }) => (
           <li
             key={organization}
             className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-x-4 gap-y-3 py-7 sm:grid-cols-[0.75rem_minmax(0,1fr)_10rem] sm:gap-x-6 sm:py-9"
@@ -76,12 +61,9 @@ export default function ExperiencePage() {
               <p>{dates}</p>
               <p>{location}</p>
             </div>
-            <div className="col-start-2 max-w-[62ch] text-[0.95rem] leading-relaxed text-black/75 sm:text-base">
-              <p>{description}</p>
-              <ul className="mt-3 list-disc space-y-1 pl-5 marker:text-blue">
-                {highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
-              </ul>
-            </div>
+            <p className="col-start-2 max-w-[62ch] text-[0.95rem] leading-relaxed text-black/75 sm:text-base">
+              {description}
+            </p>
           </li>
         ))}
       </ol>

@@ -16,12 +16,14 @@ export default function AboutPage() {
         <p className="mt-4 max-w-[62ch] leading-relaxed text-black/75">
           My work spans full-stack development, computational research, and teaching. Through UMD’s App Dev Club, I’m helping build a platform for building design.
         </p>
-        <a
-          href="https://github.com/benjamin-nie24"
-          className="mt-5 inline-block font-medium text-blue underline decoration-blue/50 underline-offset-4 hover:decoration-blue"
-        >
-          GitHub <span aria-hidden="true">↗</span>
-        </a>
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 font-medium text-blue underline-offset-4">
+          <a href="/benjamin-nie-resume.pdf" className="underline decoration-blue/50 hover:decoration-blue">
+            Résumé (PDF)
+          </a>
+          <a href="https://github.com/benjamin-nie24" className="underline decoration-blue/50 hover:decoration-blue">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
       <div className="mt-12 grid gap-8 border-t border-black/15 pt-8 sm:grid-cols-2 sm:gap-10">
         <section aria-labelledby="education">
