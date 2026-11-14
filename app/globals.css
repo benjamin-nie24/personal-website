@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme static {
+  --font-sans: "Instrument Sans Variable", Arial, sans-serif;
+  --color-paper: #f5f5f5;
+  --color-blue: #35627a;
+  --color-rose: #e5aea9;
+  --color-brick: #b46258;
+  --color-lavender: #a6a9d0;
+  --color-sage: #8e9a98;
+}
