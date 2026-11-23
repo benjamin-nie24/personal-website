@@ -1,19 +1,14 @@
 # Benjamin Nie | Personal Portfolio
 
-A personal portfolio with an interactive homepage, software projects, and experience in engineering, research, and teaching.
+A portfolio of software engineering projects, computational research, and student leadership experience. Built with the Next.js App Router, React, TypeScript, and Tailwind CSS.
 
 ## Site overview
 
-| Page | Route | Content |
+| Section | Route | Content |
 | --- | --- | --- |
-| Home | `/` | Colored circles that nudge each other aside as you move your cursor or touch and drag. The animation respects reduced-motion settings. |
-| Experience | `/experience` | Roles in software engineering, computational research, student leadership, and teaching. |
+| Experience | `/experience` | Roles in software engineering, computational research, and student leadership. |
 | Projects | `/projects` | [Scute](https://github.com/benjamin-nie24/scute), a walking route planner for the University of Maryland campus. |
-| About | `/about` | Education, technical skills, certification, and links to the résumé and GitHub profile. |
-
-## Technology
-
-Built with the Next.js App Router, React, TypeScript, and Tailwind CSS. The homepage uses an HTML canvas to draw and animate the circles.
+| About | `/about` | Education, technical skills, and links to the résumé and GitHub profile. |
 
 ## Local development
 

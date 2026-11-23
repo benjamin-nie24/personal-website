@@ -3,17 +3,17 @@ import { SectionPage } from "../components/section-page";
 
 export const metadata: Metadata = {
   title: "Experience | Benjamin Nie",
-  description: "Benjamin Nie’s experience in software engineering, computational research, and teaching.",
+  description: "Benjamin Nie’s experience in software engineering, computational research, and student leadership.",
 };
 
 const experience = [
   {
-    title: "Software Engineer",
-    organization: "Ajamais AI",
+    title: "Software Engineering Intern",
+    organization: "Ajamais AI · Structora",
     location: "College Park, MD",
     dates: "Sep 2026 – Present",
     color: "bg-blue",
-    description: "Developing the Assessments dashboard for Structora through UMD’s App Dev Club. The dashboard gives building design teams one place to review decisions and track risks.",
+    description: "Helped build Structora’s dashboard for building design teams to review decisions and track project risks. Connected four dashboard panels so each shows the same assessment data, and added automated tests for the dashboard and supporting services.",
   },
   {
     title: "Computational Software Research Intern",
@@ -30,14 +30,6 @@ const experience = [
     dates: "Sep 2023 – Jun 2026",
     color: "bg-brick",
     description: "Maintained and updated the chapter website for more than 200 members using HTML and CSS.",
-  },
-  {
-    title: "S.E.E. Program Teaching Assistant",
-    organization: "Johns Hopkins University",
-    location: "Frederick, MD",
-    dates: "Jun 2025 – Jul 2025",
-    color: "bg-sage",
-    description: "Supported more than 20 students per day with lab work and coursework. Helped run two to three lab sessions each week by preparing equipment, calibrating instruments, and enforcing safety procedures.",
   },
 ];
 

@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 const projects = [
   {
     name: "Scute",
-    description: "A walking route planner for the University of Maryland campus. A custom A* algorithm in Python calculates routes, and an interactive React map displays directions. The React frontend, Express API, and Flask routing service run separately on Render.",
-    technologies: ["React", "Python", "Express", "Flask", "PostgreSQL"],
+    description: "Built an interactive map for finding walking directions across the University of Maryland campus. Wrote a Python routing algorithm that calculated paths in a median of 14.4 milliseconds across 300 local test routes.",
+    technologies: ["React", "Python", "Express", "Flask", "PostgreSQL", "Render"],
     accent: "bg-blue",
     repository: "https://github.com/benjamin-nie24/scute",
   },

@@ -14,7 +14,7 @@ export default function AboutPage() {
           I’m Benjamin Nie, a computer science student at the University of Maryland, College Park.
         </p>
         <p className="mt-4 max-w-[62ch] leading-relaxed text-black/75">
-          My work spans full-stack development, computational research, and teaching. Through UMD’s App Dev Club, I’m helping build a platform for building design.
+          My work spans full-stack development and computational research. Through UMD’s App Dev Club, I’m helping develop Structora’s Assessments dashboard, including shared state, data integrity, and AI-generated project briefs.
         </p>
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 font-medium text-blue underline-offset-4">
           <a href="/benjamin-nie-resume.pdf" className="underline decoration-blue/50 hover:decoration-blue">
@@ -45,10 +45,13 @@ export default function AboutPage() {
             Technical skills
           </h2>
           <p className="mt-3 leading-relaxed text-black/75">
-            Java, Python, JavaScript, SQL, HTML, CSS, React, Flask, Express, PostgreSQL, and Git.
+            Java, Python, JavaScript, TypeScript, SQL, HTML, and CSS.
           </p>
           <p className="mt-3 leading-relaxed text-black/75">
-            Certiport Information Technology Specialist.
+            React, Next.js, Flask, Express, Flutter, NumPy, Pandas, and Matplotlib.
+          </p>
+          <p className="mt-3 leading-relaxed text-black/75">
+            PostgreSQL, MongoDB, Firebase, Supabase, Git, Postman, Node.js, Vite, Render, and Vercel.
           </p>
         </section>
       </div>
