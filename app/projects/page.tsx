@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SectionPage } from "../components/section-page";
+import { ScutePreview } from "../components/scute-preview";
 
 export const metadata: Metadata = {
   title: "Projects | Benjamin Nie",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 const projects = [
   {
     name: "Scute",
+    preview: ScutePreview,
     description: "Built an interactive map for finding walking directions across the University of Maryland campus. Wrote a Python routing algorithm that calculated paths in a median of 14.4 milliseconds across 300 local test routes.",
     technologies: ["React", "Python", "Express", "Flask", "PostgreSQL", "Render"],
     accent: "bg-blue",
@@ -20,7 +22,7 @@ export default function ProjectsPage() {
   return (
     <SectionPage page="projects">
       <ul className="mt-10 divide-y divide-black/10 border-y border-black/15 sm:mt-14">
-        {projects.map(({ name, description, technologies, accent, repository }) => (
+        {projects.map(({ name, description, technologies, accent, repository, preview: Preview }) => (
           <li key={name}>
             <article className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-x-4 py-7 sm:gap-x-6 sm:py-9">
               <span aria-hidden="true" className={`mt-[0.65rem] size-3 rounded-full ${accent}`} />
@@ -34,7 +36,8 @@ export default function ProjectsPage() {
                     </li>
                   ))}
                 </ul>
-                <footer className="mt-5 border-t border-black/10 pt-4">
+                <Preview />
+                <footer className="border-t border-black/10 pt-4">
                   <a
                     href={repository}
                     className="font-medium text-blue underline decoration-blue/50 underline-offset-4 hover:decoration-blue"
